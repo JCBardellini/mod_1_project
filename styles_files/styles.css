@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: #281a33;
+    color: gainsboro;
+    margin: 10px;
+}
+/* grid outline  */
+#grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 300px 1fr 50px;
+    gap: 3px;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Header */
+#navbar-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 95%;
+
+}   
+#logo {
+    display: flex;
+    align-items: center;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 2px red;
+    height: 95%;
+    font-size: 2rem;
+    margin: auto 0;
+    margin-left: 25px;
+}
+#navbar {
+    width: 30%;
+}
+#nav-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 95%;
+}
+#nav-links .nav-item {
+    list-style-type: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    text-shadow: 1px 1px 1px red;
+    letter-spacing: 2px;
+}
+.nav-item:hover {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+/* Hero page */
+#title {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 2px red;
+    letter-spacing: 2px;
+    padding-bottom: 5px;
+}
+.hero-img {
+    height: 75%;
+    width: 100%;
+    border: 1px solid black;
+}
+/* Games */
+#games-container {
+    margin-top: 10px;
+}
+#qoute {
+    text-align: center;
+    margin: 10px 25px;
+    padding-bottom: 10px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    font-style: italic;
+}
+#games-container h2 {
+    text-shadow: 2px 2px 2px red;
+    margin-left: 25px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    font-size: 1.75rem;
+}
+#games-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 50px
+}
+.game {
+    width: 300px;
+    height: 350px;
+    border: 1px solid black;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 1px 3px 8px rgba(85, 15, 15, 0.5);
+}
+.game-img {
+    width: 100%;
+    height: 260px;
+    border-radius: 15px 15px 0 0;
+    object-fit: cover;
+}
+.game-title {
+    text-align: center;
+    font-size: 1.125rem;
+    margin: 10px 0;
+    letter-spacing: 2px;
+}
+#play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+    width: 30%;
+    height: 30px;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+#play:hover {
+    background-color: #4CAF50;
+    box-shadow: 1px 3px 4px rgba(216, 199, 199, 0.5);
+}
+/* Footer */
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    font-size: 1.25rem;
+}
