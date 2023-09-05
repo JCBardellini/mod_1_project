@@ -112,13 +112,13 @@ const pathWayPoints = [
 // ctx.fillRect(1000, 128, 32, 32)
 
 
-// Defenders
 
 // create a mouseover and mouseleave event listener that will draw an outline that defenders can come using the game cell index
 
 // creating the index of where the cells where we can put defenders
 
-const defendersPlacementTiles = [
+// I need to create a class called placement tiles, where i can put in the canvas 
+const placementTiles = [
     { x: 0, y: 200 },
     { x: 0, y: 280 },
     { x: 0, y: 560 },
@@ -155,25 +155,73 @@ const defendersPlacementTiles = [
     { x: 650, y: 100 },
     { x: 550, y: 100 }
 ];
-// To check where to put my defenders I went checked creating a blue square in the img to see where to place it
 
-const defender = []
-
-class Defenders {
-    constructor({ position = {x: 0, y: 0} }){
+class Placement {
+    constructor({position = {x: 0, y: 0} }) {
         this.position = position;
-        this.size = 75
+        this.size = 75;
+        this.placementIndex = 0
+        
     }
     draw() {
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "blue"
         ctx.fillRect(this.position.x, this.position.y, this.size, this.size)
     }
-}
+};
+
+const placementObjects = placementTiles.map( (tile) => {
+    new Placement(tile.x, tile.y)
+});
+
+
+
+// ctx.fillStyle = "blue"
+// ctx.fillRect(0, 200, 75, 75)
+// ctx.fillRect(0, 280, 75, 75)
+// ctx.fillRect(0, 560, 75, 75)
+// ctx.fillRect(80, 360, 75, 75)
+// ctx.fillRect(80, 280, 75, 75)
+// ctx.fillRect(80, 200, 75, 75)
+// ctx.fillRect(123, 120, 75, 75)
+// ctx.fillRect(40, 120, 75, 75)
+// ctx.fillRect(80, 560, 75, 75)
+// ctx.fillRect(205, 120, 75, 75)
+// ctx.fillRect(150, 40, 75, 75)
+// ctx.fillRect(375, 120, 75, 75)
+// ctx.fillRect(460, 120, 75, 75)
+// ctx.fillRect(165, 560, 75, 75)
+// ctx.fillRect(290, 120, 75, 75)
+// ctx.fillRect(235, 40, 75, 75)
+// ctx.fillRect(245, 563, 75, 75)
+// ctx.fillRect(330, 563, 75, 75)
+// ctx.fillRect(290, 483, 75, 75)
+// ctx.fillRect(340, 403, 75, 75)
+// ctx.fillRect(290, 325, 75, 75)
+// ctx.fillRect(865, 490, 75, 75)
+// ctx.fillRect(865, 405, 75, 75)
+// ctx.fillRect(865, 320, 75, 75)
+// ctx.fillRect(865, 230, 75, 75)
+// ctx.fillRect(650, 420, 75, 75)
+// ctx.fillRect(550, 420, 75, 75)
+// ctx.fillRect(650, 340, 75, 75)
+// ctx.fillRect(550, 340, 75, 75)
+// ctx.fillRect(650, 260, 75, 75)
+// ctx.fillRect(550, 260, 75, 75)
+// ctx.fillRect(650, 180, 75, 75)
+// ctx.fillRect(550, 180, 75, 75)
+// ctx.fillRect(650, 100, 75, 75)
+// ctx.fillRect(550, 100, 75, 75)
+// To check where to put my defenders I went checked creating a blue square in the img to see where to place it
+
+// Defenders
+const defender = []
 
 
 // enemies
+
 const enemyImg = new Image();
 enemyImg.src = "/Zombie-td-img/zombie_img.png.png";
+
 class Enemy {
     constructor({ position = {x: 0, y: 0} }){
         this.position = position;
@@ -218,75 +266,39 @@ class Enemy {
             this.position.y === waypoints.y &&
             this.waypointsIndex < pathWayPoints.length - 1 ) {
                 this.waypointsIndex++
-            }
         }
-    };
+    }
+};
     
-    // Create an empty array where i can push my enemies in my for loop
-    // const enemyOne = new Enemy(path[0], 100) -- the loop helps me eliminate calling each enemy one by one
-    // creating a for loop to push enemies out and adding an xoffset to it so the enemies are not coming out the same time 
+
+// Create an empty array where i can push my enemies in my for loop
+// const enemyOne = new Enemy(path[0], 100) -- the loop helps me eliminate calling each enemy one by one
+// creating a for loop to push enemies out and adding an xoffset to it so the enemies are not coming out the same time 
+
+const enemies = [];
+for (let i = 1 ;i < 11; i++) {
+    let xOffset = i * 150;
+    enemies.push( new Enemy( {
+        position: {x: pathWayPoints[0].x - xOffset, y: pathWayPoints[0].y}
+    })
+    )
+};
     
-    const enemies = [];
-    for (let i = 1 ;i < 11; i++) {
-        let xOffset = i * 150;
-        enemies.push( new Enemy( {
-            position: {x: pathWayPoints[0].x - xOffset, y: pathWayPoints[0].y}
-        })
-        )
-    };
+// an animation function that is animating the cells 
     
+const animate = () => {
+    ctx.drawImage(image, 0, 0);
+    controlGrid()
+    // loops through a the enemies with a for each method creating an enemy 
+    enemies.forEach( (enemy) => {
+        enemy.update();
+    });
+    requestAnimationFrame(animate);
+};
+animate()
     
-    // an animation function that is animating the cells 
-    
-    const animate = () => {
-        ctx.drawImage(image, 0, 0);
-        requestAnimationFrame(animate);
-        // loops through a the enemies with a for each method creating an enemy 
-        enemies.forEach( (enemy) => {
-            enemy.update();
-        });
-        controlGrid()
-        ctx.fillStyle = "blue"
-        ctx.fillRect(0, 200, 75, 75)
-        ctx.fillRect(0, 280, 75, 75)
-        ctx.fillRect(0, 560, 75, 75)
-        ctx.fillRect(80, 360, 75, 75)
-        ctx.fillRect(80, 280, 75, 75)
-        ctx.fillRect(80, 200, 75, 75)
-        ctx.fillRect(123, 120, 75, 75)
-        ctx.fillRect(40, 120, 75, 75)
-        ctx.fillRect(80, 560, 75, 75)
-        ctx.fillRect(205, 120, 75, 75)
-        ctx.fillRect(150, 40, 75, 75)
-        ctx.fillRect(375, 120, 75, 75)
-        ctx.fillRect(460, 120, 75, 75)
-        ctx.fillRect(165, 560, 75, 75)
-        ctx.fillRect(290, 120, 75, 75)
-        ctx.fillRect(235, 40, 75, 75)
-        ctx.fillRect(245, 563, 75, 75)
-        ctx.fillRect(330, 563, 75, 75)
-        ctx.fillRect(290, 483, 75, 75)
-        ctx.fillRect(340, 403, 75, 75)
-        ctx.fillRect(290, 325, 75, 75)
-        ctx.fillRect(865, 490, 75, 75)
-        ctx.fillRect(865, 405, 75, 75)
-        ctx.fillRect(865, 320, 75, 75)
-        ctx.fillRect(865, 230, 75, 75)
-        ctx.fillRect(650, 420, 75, 75)
-        ctx.fillRect(550, 420, 75, 75)
-        ctx.fillRect(650, 340, 75, 75)
-        ctx.fillRect(550, 340, 75, 75)
-        ctx.fillRect(650, 260, 75, 75)
-        ctx.fillRect(550, 260, 75, 75)
-        ctx.fillRect(650, 180, 75, 75)
-        ctx.fillRect(550, 180, 75, 75)
-        ctx.fillRect(650, 100, 75, 75)
-        ctx.fillRect(550, 100, 75, 75)
-    };
-    animate()
-    
-    // placeCharacter() {
-        //    const enemyContainer =  document.createElement("div");
-        //     enemyContainer.classList.add("enemy"); // use path[0] to get index then use function to get pixels, then set style to those pixels to place in the right spot "function name - returnPixels" 
-        //     canvasContainer.appendChild(enemyContainer)
-        // }; 
+// placeCharacter() {
+//    const enemyContainer =  document.createElement("div");
+//     enemyContainer.classList.add("enemy"); // use path[0] to get index then use function to get pixels, then set style to those pixels to place in the right spot "function name - returnPixels" 
+//     canvasContainer.appendChild(enemyContainer)
+// }; 
